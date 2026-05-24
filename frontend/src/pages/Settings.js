@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
   User, 
-  Mail, 
   Lock, 
   Bell, 
   Palette, 

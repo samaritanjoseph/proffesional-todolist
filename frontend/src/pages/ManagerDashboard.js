@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
-  Folder, 
   CheckSquare, 
   Play, 
   Clock, 
@@ -35,6 +34,7 @@ const ManagerDashboard = () => {
     fetchTasks();
     fetchUsers();
     fetchAnalytics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTasks = async () => {

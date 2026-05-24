@@ -20,6 +20,7 @@ function Subscription() {
     if (verified === 'true' && reference) {
       verifyTransaction(reference);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const verifyTransaction = async (reference) => {

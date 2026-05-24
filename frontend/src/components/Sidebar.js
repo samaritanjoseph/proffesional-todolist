@@ -5,13 +5,11 @@ import {
   LayoutDashboard, 
   CheckSquare, 
   CalendarDays, 
-  BarChart3, 
   Users, 
   Settings, 
   LogOut,
   CreditCard
 } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const Sidebar = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');

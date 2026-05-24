@@ -5,15 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
   Search, 
-  Filter, 
   ChevronDown, 
-  Calendar,
-  User as UserIcon,
-  CheckCircle2,
-  AlertCircle,
-  Clock,
-  LayoutGrid,
-  List
+  Calendar
 } from 'lucide-react';
 import Layout from '../components/Layout';
 

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
   ChevronLeft, 
   ChevronRight, 
   Calendar as CalendarIcon,
-  Clock,
-  CheckCircle2,
-  AlertCircle
+  Clock
 } from 'lucide-react';
 import Layout from '../components/Layout';
 

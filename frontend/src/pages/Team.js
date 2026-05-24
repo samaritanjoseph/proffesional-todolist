@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
-  Users, 
   Mail, 
   Shield, 
   Trash2, 
@@ -17,10 +16,10 @@ import Layout from '../components/Layout';
 const Team = () => {
   const { t } = useTranslation();
   const [team, setTeam] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTeam();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchTeam = async () => {
@@ -29,8 +28,6 @@ const Team = () => {
       setTeam(data);
     } catch {
       toast.error(t('team.messages.loadFailed') || 'Could not load team members');
-    } finally {
-      setLoading(false);
     }
   };
 

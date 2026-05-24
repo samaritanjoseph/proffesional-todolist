@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import API from '../api/axiosInstance';
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle, Loader2, ArrowRight } from 'lucide-react';
 
 const VerifyEmail = () => {
   const { token } = useParams();
-  const navigate = useNavigate();
   const [status, setStatus] = useState('verifying'); // verifying, success, error
   const [message, setMessage] = useState('');
 
