@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    const socket = io('http://localhost:5000');
+    const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
 
     // Join the room for this user ID
     socket.emit('join', user.id);

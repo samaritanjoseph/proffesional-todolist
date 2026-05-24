@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { 
   Folder, 
   CheckSquare, 
@@ -9,31 +11,25 @@ import {
   Clock, 
   MoreVertical,
   PlayCircle,
-  PauseCircle,
-  Square
+  Plus,
+  X,
+  Lock,
+  Sparkles
 } from 'lucide-react';
 import Layout from '../components/Layout';
-
-const StatCard = ({ icon: Icon, label, value, color, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
-    className="bg-[#09090b] border border-white/5 rounded-2xl p-5 flex flex-col justify-between"
-  >
-    <div className="flex justify-between items-start mb-4">
-      <div className="p-3 rounded-xl" style={{ backgroundColor: `${color}15`, color }}>
-        <Icon size={20} />
-      </div>
-      <button className="text-slate-500 hover:text-slate-300"><MoreVertical size={18}/></button>
-    </div>
-    <div>
-      <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">{value}</h3>
-      <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{label}</p>
-    </div>
-  </motion.div>
-);
+import StatCard from '../components/StatCard';
 
 const UserDashboard = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '' });
+  const [submitting, setSubmitting] = useState(false);
+
+  // Always read fresh from localStorage (updated by Subscription.js after payment)
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const isPremium = user.isPremium || false;
   
   useEffect(() => {
     fetchTasks();
@@ -52,7 +48,27 @@ const UserDashboard = () => {
       toast.success(`Task marked as ${newStatus}`);
       fetchTasks();
     } catch { toast.error('Failed to update task'); }
-  }
+  };
+
+  const handleCreateTask = async (e) => {
+    e.preventDefault();
+    const year = newTask.dueDate.split('-')[0];
+    if (year.length > 4) return toast.error('Year must be exactly 4 digits');
+
+    setSubmitting(true);
+    try {
+      // Premium users assign to themselves
+      await API.post('/tasks', { ...newTask, assignedTo: user.id });
+      toast.success('Task created successfully!');
+      setIsModalOpen(false);
+      setNewTask({ title: '', description: '', dueDate: '' });
+      fetchTasks();
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to create task');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const completed = tasks.filter(t => t.status === 'completed').length;
   const inProgress = tasks.filter(t => t.status === 'in-progress').length;
@@ -62,17 +78,42 @@ const UserDashboard = () => {
     <Layout>
       <div className="mb-8 flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">My Dashboard</h1>
-          <p className="text-sm text-slate-400">Track your assigned projects and time.</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">{t('userDashboard.title')}</h1>
+          <p className="text-sm text-slate-400">{t('userDashboard.subtitle')}</p>
         </div>
+
+        {/* Premium Create Task button OR locked upgrade prompt */}
+        {isPremium ? (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={() => setIsModalOpen(true)}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-indigo-600/20 flex items-center gap-2 active:scale-[0.98]"
+          >
+            <Plus size={16} /> Create Task
+          </motion.button>
+        ) : (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={() => navigate('/subscription')}
+            className="flex items-center gap-2 bg-white/5 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/10 px-5 py-2.5 rounded-xl text-sm font-bold transition-all"
+          >
+            <Lock size={14} />
+            <span>Unlock Task Creation</span>
+            <span className="bg-indigo-500/20 text-indigo-300 text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded-full flex items-center gap-1 border border-indigo-500/20">
+              <Sparkles size={8} /> Premium
+            </span>
+          </motion.button>
+        )}
       </div>
 
       {/* ── Top Stat Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard icon={Folder} label="My Projects" value={tasks.length} color="#3b82f6" delay={0.1} />
-        <StatCard icon={CheckSquare} label="Ended Projects" value={completed} color="#10b981" delay={0.2} />
-        <StatCard icon={Play} label="Running Projects" value={inProgress} color="#8b5cf6" delay={0.3} />
-        <StatCard icon={Clock} label="Pending Projects" value={pending} color="#f59e0b" delay={0.4} />
+        <StatCard icon={Folder} label={t('userDashboard.projects')} value={tasks.length} color="#3b82f6" delay={0.1} />
+        <StatCard icon={CheckSquare} label={t('userDashboard.ended')} value={completed} color="#10b981" delay={0.2} />
+        <StatCard icon={Play} label={t('userDashboard.running')} value={inProgress} color="#8b5cf6" delay={0.3} />
+        <StatCard icon={Clock} label={t('userDashboard.pending')} value={pending} color="#f59e0b" delay={0.4} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -82,7 +123,7 @@ const UserDashboard = () => {
           className="lg:col-span-2 bg-[#09090b] border border-white/5 rounded-2xl p-6"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-bold text-white">Assigned to Me</h2>
+            <h2 className="text-lg font-bold text-white">{t('userDashboard.assigned')}</h2>
             <button className="text-slate-500 hover:text-white"><MoreVertical size={18}/></button>
           </div>
           
@@ -90,15 +131,15 @@ const UserDashboard = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/10 text-xs text-slate-500">
-                  <th className="pb-3 font-medium">PROJECT NAME</th>
-                  <th className="pb-3 font-medium">DUE DATE</th>
-                  <th className="pb-3 font-medium">CURRENT STATUS</th>
-                  <th className="pb-3 font-medium text-right">ACTION</th>
+                  <th className="pb-3 font-medium">{t('userDashboard.table.name')}</th>
+                  <th className="pb-3 font-medium">{t('userDashboard.table.due')}</th>
+                  <th className="pb-3 font-medium">{t('userDashboard.table.status')}</th>
+                  <th className="pb-3 font-medium text-right">{t('userDashboard.table.action')}</th>
                 </tr>
               </thead>
               <tbody>
                 {tasks.length === 0 && (
-                  <tr><td colSpan="4" className="py-4 text-center text-sm text-slate-500">No projects assigned yet.</td></tr>
+                  <tr><td colSpan="4" className="py-4 text-center text-sm text-slate-500">{t('userDashboard.noProjects')}</td></tr>
                 )}
                 {tasks.map(task => (
                   <tr key={task._id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
@@ -115,7 +156,9 @@ const UserDashboard = () => {
                         task.status === 'in-progress' ? 'text-indigo-400 border-indigo-400/20 bg-indigo-400/5' : 
                         'text-amber-400 border-amber-400/20 bg-amber-400/5'
                       }`}>
-                        {task.status.replace('-', ' ')}
+                        {task.status === 'in-progress' ? t('userDashboard.status.inProgress') : 
+                         task.status === 'completed' ? t('userDashboard.status.completed') : 
+                         t('userDashboard.status.pending')}
                       </span>
                     </td>
                     <td className="py-4 text-right">
@@ -124,9 +167,9 @@ const UserDashboard = () => {
                          onChange={(e) => handleStatusUpdate(task._id, e.target.value)}
                          className="bg-white/5 border border-white/10 text-slate-300 text-xs px-3 py-1.5 rounded-lg outline-none cursor-pointer hover:bg-white/10 transition-colors"
                        >
-                         <option value="pending" className="bg-[#09090b]">Pending</option>
-                         <option value="in-progress" className="bg-[#09090b]">In Progress</option>
-                         <option value="completed" className="bg-[#09090b]">Completed</option>
+                         <option value="pending" className="bg-[#09090b]">{t('userDashboard.status.pending')}</option>
+                         <option value="in-progress" className="bg-[#09090b]">{t('userDashboard.status.inProgress')}</option>
+                         <option value="completed" className="bg-[#09090b]">{t('userDashboard.status.completed')}</option>
                        </select>
                     </td>
                   </tr>
@@ -143,11 +186,11 @@ const UserDashboard = () => {
             className="bg-[#09090b] border border-white/5 rounded-2xl p-6 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-purple-600/10 blur-2xl rounded-full pointer-events-none"></div>
-            <h2 className="text-sm font-semibold text-slate-300 mb-4">Current Session</h2>
+            <h2 className="text-sm font-semibold text-slate-300 mb-4">{t('userDashboard.session.title')}</h2>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-3xl font-bold text-white font-mono">00:00:00</p>
-                <p className="text-xs text-purple-400 mt-1">Ready to start?</p>
+                <p className="text-xs text-purple-400 mt-1">{t('userDashboard.session.ready')}</p>
               </div>
               <div className="flex gap-2">
                 <button className="p-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg text-blue-400 transition-colors"><PlayCircle size={20}/></button>
@@ -160,7 +203,7 @@ const UserDashboard = () => {
             className="flex-1 bg-[#09090b] border border-white/5 rounded-2xl p-6"
           >
             <div className="flex justify-between items-center mb-5">
-              <h2 className="text-lg font-bold text-white">Upcoming Deadlines</h2>
+              <h2 className="text-lg font-bold text-white">{t('userDashboard.upcoming.title')}</h2>
             </div>
             <ul className="space-y-4">
                {tasks.filter(t => t.status !== 'completed').slice(0, 4).map((task, i) => (
@@ -168,20 +211,113 @@ const UserDashboard = () => {
                    <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
                    <div>
                      <p className="text-sm font-medium text-slate-200 line-clamp-1">{task.title}</p>
-                     <p className="text-xs text-slate-500 mt-0.5">Due: {new Date(task.dueDate).toLocaleDateString()}</p>
+                     <p className="text-xs text-slate-500 mt-0.5">{t('userDashboard.upcoming.due')} {new Date(task.dueDate).toLocaleDateString()}</p>
                    </div>
                  </li>
                ))}
                {tasks.filter(t => t.status !== 'completed').length === 0 && (
-                 <p className="text-xs text-slate-500">You're all caught up!</p>
+                 <p className="text-xs text-slate-500">{t('userDashboard.upcoming.caughtUp')}</p>
                )}
             </ul>
           </motion.div>
         </div>
 
       </div>
+
+      {/* ── Task Creation Modal (Premium only) ── */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="bg-[#09090b] border border-white/10 rounded-3xl p-8 max-w-md w-full relative z-10 shadow-2xl overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 blur-2xl rounded-full pointer-events-none" />
+
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h3 className="text-lg font-bold text-white">Create New Task</h3>
+                  <p className="text-xs text-indigo-400 mt-0.5 flex items-center gap-1"><Sparkles size={10} /> Premium Feature</p>
+                </div>
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-slate-500 hover:text-slate-300 p-1.5 hover:bg-white/5 rounded-xl transition-all"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <form onSubmit={handleCreateTask} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Task Title</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="e.g. Finish project report"
+                    value={newTask.title} 
+                    onChange={e => setNewTask({...newTask, title: e.target.value})}
+                    className="w-full bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-600"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Description <span className="normal-case font-normal text-slate-500">(optional)</span></label>
+                  <textarea 
+                    placeholder="Add details about this task..."
+                    value={newTask.description} 
+                    onChange={e => setNewTask({...newTask, description: e.target.value})}
+                    className="w-full bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-all placeholder:text-slate-600 min-h-[80px] resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Due Date</label>
+                  <input 
+                    type="date" 
+                    required
+                    value={newTask.dueDate} 
+                    onChange={e => setNewTask({...newTask, dueDate: e.target.value})}
+                    className="w-full bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-all"
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-2">
+                  <button 
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 py-3 px-4 bg-white/5 border border-white/5 text-slate-300 rounded-2xl font-bold text-sm hover:bg-white/10 transition-all active:scale-[0.98]"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit"
+                    disabled={submitting}
+                    className="flex-1 py-3 px-4 bg-indigo-600 text-white rounded-2xl font-bold text-sm hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {submitting ? (
+                      <span className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                    ) : 'Create Task'}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </Layout>
   );
 };
 
 export default UserDashboard;
+

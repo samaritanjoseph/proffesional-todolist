@@ -1,0 +1,267 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "tasks": "Tasks",
+    "calendar": "Calendar",
+    "analytics": "Analytics",
+    "team": "Team",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Sign in to Nexus",
+    "subtitle": "Please enter your details to continue to your workspace.",
+    "email": "Work Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create Account",
+    "welcomeBack": "Welcome back! 👋",
+    "fillFields": "Please fill in all fields",
+    "authFailed": "Authentication failed"
+  },
+  "register": {
+    "title": "Join the next generation of task management.",
+    "subtitle": "Secure, high-performance task management designed for elite teams.",
+    "createAccount": "Create Account",
+    "signUpText": "Join thousands of professionals using Nexus.",
+    "fullName": "Full Name",
+    "email": "Work Email",
+    "password": "Password",
+    "confirm": "Confirm Password",
+    "createWorkspace": "Create Workspace",
+    "alreadyHave": "Already have an account?",
+    "signIn": "Sign In",
+    "enterOtp": "Verify your email",
+    "otpSent": "We sent a 6-digit code to",
+    "otpCode": "OTP Code",
+    "complete": "Complete Setup",
+    "wrongEmail": "Entered the wrong email?",
+    "otpSentSuccess": "OTP sent to your email",
+    "passMismatch": "Passwords do not match",
+    "regFailed": "Registration Failed",
+    "verified": "Account verified!",
+    "invalidOtp": "Invalid or expired OTP",
+    "fillFields": "Please fill in all fields",
+    "otpLengthError": "Please enter a 6-digit code"
+  },
+  "topbar": {
+    "search": "Search tasks, projects, or team...",
+    "logout": "Logout"
+  },
+  "userDashboard": {
+    "title": "My Dashboard",
+    "subtitle": "Track your assigned projects and time.",
+    "projects": "My Projects",
+    "ended": "Ended Projects",
+    "running": "Running Projects",
+    "pending": "Pending Projects",
+    "assigned": "Assigned to Me",
+    "noProjects": "No projects assigned yet.",
+    "table": {
+      "name": "PROJECT NAME",
+      "due": "DUE DATE",
+      "status": "CURRENT STATUS",
+      "action": "ACTION"
+    },
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "session": {
+      "title": "Current Session",
+      "ready": "Ready to start?"
+    },
+    "upcoming": {
+      "title": "Upcoming Deadlines",
+      "caughtUp": "You're all caught up!",
+      "due": "Due:"
+    }
+  },
+  "adminDashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's an overview of your projects.",
+    "newTask": "+ NEW TASK",
+    "stats": {
+      "total": "Total Projects",
+      "ended": "Ended Projects",
+      "running": "Running Projects",
+      "pending": "Pending Projects"
+    },
+    "charts": {
+      "analytics": "Project Analytics",
+      "week": "This Week",
+      "month": "This Month"
+    },
+    "session": {
+      "title": "Current Session",
+      "pausing": "PAUSING...",
+      "stop": "STOP"
+    },
+    "reminders": {
+      "title": "Reminders",
+      "viewAll": "View All"
+    },
+    "projects": {
+      "title": "All Projects",
+      "name": "PROJECT NAME",
+      "assignee": "ASSIGNEE",
+      "due": "DUE DATE",
+      "status": "STATUS"
+    },
+    "team": {
+      "title": "Team Members",
+      "noMembers": "No team members.",
+      "deleteTitle": "Delete User"
+    },
+    "modal": {
+      "title": "Create New Task",
+      "taskTitle": "Task Title",
+      "description": "Description (Optional)",
+      "assignTo": "Assign To",
+      "selectUser": "Select User",
+      "dueDate": "Due Date",
+      "cancel": "Cancel",
+      "create": "CREATE TASK"
+    }
+  },
+  "managerDashboard": {
+    "header": {
+      "view": "Manager View",
+      "welcome": "Welcome, {{name}}",
+      "logout": "Logout"
+    },
+    "stats": {
+      "teamTasks": "Team Tasks",
+      "completed": "Completed",
+      "pending": "Pending"
+    },
+    "overview": {
+      "title": "Team Progress Overview",
+      "noTasks": "No tasks assigned to your team.",
+      "assignee": "Assignee: {{name}}"
+    }
+  },
+  "tasksView": {
+    "header": {
+      "title": "Task Workspace",
+      "subtitle": "Search, filter, and manage all projects in one place."
+    },
+    "filters": {
+      "search": "Search tasks or descriptions...",
+      "status": {
+        "all": "All Status",
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "completed": "Completed"
+      }
+    },
+    "taskCard": {
+      "noDescription": "No description provided for this task.",
+      "unassigned": "Unassigned"
+    },
+    "empty": {
+      "title": "No tasks found",
+      "subtitle": "Try adjusting your search or filters."
+    }
+  },
+  "calendar": {
+    "header": {
+      "title": "Calendar Workspace",
+      "subtitle": "Track deadlines and stay ahead of your schedule."
+    },
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "days": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "details": {
+      "schedule": "Schedule for today",
+      "noTasks": "No tasks due on this day",
+      "more": "+ {{count}} more",
+      "overdue": "Overdue check"
+    }
+  },
+  "team": {
+    "header": {
+      "title": "Team Management",
+      "subtitle": "View and manage your team members and their productivity.",
+      "invite": "INVITE MEMBER"
+    },
+    "table": {
+      "member": "Member",
+      "role": "Role",
+      "taskStats": "Task Stats",
+      "progress": "Progress",
+      "actions": "Actions",
+      "total": "Total",
+      "done": "Done",
+      "efficiency": "Efficiency"
+    },
+    "messages": {
+      "confirmDelete": "Are you sure you want to remove this team member?",
+      "memberRemoved": "Member removed",
+      "removeFailed": "Failed to remove member"
+    }
+  },
+  "settings": {
+    "header": {
+      "title": "Account Settings",
+      "subtitle": "Manage your profile, notifications, and preferences."
+    },
+    "tabs": {
+      "profile": "Profile Information",
+      "security": "Security & Password",
+      "notifications": "Notifications",
+      "appearance": "Appearance"
+    },
+    "profile": {
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "save": "SAVE CHANGES",
+      "success": "Profile updated successfully!",
+      "failed": "Update failed"
+    },
+    "security": {
+      "title": "Change Password",
+      "subtitle": "Ensure your account is using a long, random password to stay secure.",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "update": "UPDATE PASSWORD",
+      "matchError": "Passwords do not match",
+      "success": "Password changed successfully!",
+      "failed": "Failed to change password"
+    },
+    "appearance": {
+      "title": "Theme Selection",
+      "subtitle": "Choose the look and feel that suits your workflow.",
+      "catchy": "Catchy Vibrant",
+      "bw": "Black & White",
+      "switched": "Theme switched!"
+    },
+    "notifications": {
+      "info": "Notifications system is automated and always ON."
+    }
+  }
+}

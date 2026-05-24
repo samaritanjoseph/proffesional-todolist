@@ -30,7 +30,11 @@ if (!fs.existsSync(uploadDir)) {
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf;
+  }
+}));
 app.use('/uploads', express.static(uploadDir));
 
 // Track online users for private notifications (UserId -> SocketId)
@@ -63,6 +67,7 @@ app.set('activeUsers', activeUsers);
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tasks', require('./routes/tasks'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/subscriptions', require('./routes/subscriptions'));
 
 // Global Error Handler
 app.use((err, req, res, next) => {

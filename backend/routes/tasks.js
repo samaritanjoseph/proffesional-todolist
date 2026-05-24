@@ -2,12 +2,13 @@ const router = require('express').Router();
 const Task = require('../models/Task');
 const verify = require('../middleware/verifyToken');
 const checkRole = require('../middleware/checkRole');
+const checkPremium = require('../middleware/checkPremium');
 const { body, validationResult } = require('express-validator');
 
-// GET TASKS (Admin: All, User: Only theirs)
+// GET TASKS (Admin/Manager: All, User: Only theirs)
 router.get('/', verify, async (req, res, next) => {
   try {
-    const query = req.user.role === 'admin' ? {} : { assignedTo: req.user.id };
+    const query = (req.user.role === 'admin' || req.user.role === 'manager') ? {} : { assignedTo: req.user.id };
     const tasks = await Task.find(query).populate('assignedTo', 'name email');
     res.json(tasks);
   } catch (err) {
@@ -78,8 +79,8 @@ router.get('/analytics', verify, checkRole('admin'), async (req, res, next) => {
 const User = require('../models/User');
 const sendEmail = require('../utils/email');
 
-// CREATE TASK (Admin only)
-router.post('/', verify, checkRole('admin'), [
+// CREATE TASK (Admin or Premium)
+router.post('/', verify, checkPremium, [
   body('title').notEmpty().withMessage('Title is required'),
   body('assignedTo').isMongoId().withMessage('Valid User ID is required'),
   body('dueDate').isISO8601().toDate().withMessage('Valid due date is required')
@@ -88,6 +89,11 @@ router.post('/', verify, checkRole('admin'), [
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   try {
+    // If premium user (not admin or manager), they can only assign tasks to themselves
+    if (req.user.role !== 'admin' && req.user.role !== 'manager' && req.body.assignedTo !== req.user.id) {
+      return res.status(403).json({ message: "Premium users can only assign tasks to themselves" });
+    }
+
     const task = new Task(req.body);
     await task.save();
 
@@ -116,8 +122,13 @@ router.post('/', verify, checkRole('admin'), [
   }
 });
 
-// MARK COMPLETE
-router.patch('/:id', verify, async (req, res, next) => {
+// UPDATE TASK STATUS (Owner or Admin)
+router.patch('/:id', verify, [
+  body('status').optional().isIn(['pending', 'in-progress', 'completed']).withMessage('Status must be pending, in-progress, or completed')
+], async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: "Task not found" });
@@ -127,7 +138,8 @@ router.patch('/:id', verify, async (req, res, next) => {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
-    task.status = 'completed';
+    // Use the status from request body, fall back to 'completed' for backward compatibility
+    task.status = req.body.status || 'completed';
     await task.save();
     res.json(task);
   } catch (err) {

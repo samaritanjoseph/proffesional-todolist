@@ -1,0 +1,267 @@
+{
+  "sidebar": {
+    "dashboard": "Panel",
+    "tasks": "Tareas",
+    "calendar": "Calendario",
+    "analytics": "Análisis",
+    "team": "Equipo",
+    "settings": "Ajustes",
+    "logout": "Cerrar sesión"
+  },
+  "login": {
+    "title": "Iniciar sesión en Nexus",
+    "subtitle": "Por favor, introduce tus datos para continuar a tu espacio de trabajo.",
+    "email": "Correo electrónico de trabajo",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "signIn": "Iniciar Sesión",
+    "noAccount": "¿No tienes una cuenta?",
+    "createAccount": "Crear Cuenta",
+    "welcomeBack": "¡Bienvenido de nuevo! 👋",
+    "fillFields": "Por favor, completa todos los campos",
+    "authFailed": "La autenticación falló"
+  },
+  "register": {
+    "title": "Únete a la próxima generación de gestión de tareas.",
+    "subtitle": "Gestión de tareas segura y de alto rendimiento diseñada para equipos de élite.",
+    "createAccount": "Crear Cuenta",
+    "signUpText": "Únete a miles de profesionales que usan Nexus.",
+    "fullName": "Nombre Completo",
+    "email": "Correo electrónico de trabajo",
+    "password": "Contraseña",
+    "confirm": "Confirmar Contraseña",
+    "createWorkspace": "Crear Espacio de Trabajo",
+    "alreadyHave": "¿Ya tienes una cuenta?",
+    "signIn": "Iniciar Sesión",
+    "enterOtp": "Verifica tu correo",
+    "otpSent": "Hemos enviado un código de 6 dígitos a",
+    "otpCode": "Código OTP",
+    "complete": "Completar Configuración",
+    "wrongEmail": "¿Ingresaste el correo equivocado?",
+    "otpSentSuccess": "OTP enviado a tu correo",
+    "passMismatch": "Las contraseñas no coinciden",
+    "regFailed": "Registro Fallido",
+    "verified": "¡Cuenta verificada!",
+    "invalidOtp": "OTP inválido o expirado",
+    "fillFields": "Por favor, completa todos los campos",
+    "otpLengthError": "Por favor, introduce un código de 6 dígitos"
+  },
+  "topbar": {
+    "search": "Buscar tareas, proyectos o equipo...",
+    "logout": "Cerrar sesión"
+  },
+  "userDashboard": {
+    "title": "Mi Tablero",
+    "subtitle": "Haz un seguimiento de tus proyectos y tiempo.",
+    "projects": "Mis Proyectos",
+    "ended": "Proyectos Terminados",
+    "running": "Proyectos en Curso",
+    "pending": "Proyectos Pendientes",
+    "assigned": "Asignado a Mí",
+    "noProjects": "Aún no hay proyectos asignados.",
+    "table": {
+      "name": "NOMBRE DEL PROYECTO",
+      "due": "FECHA LÍMITE",
+      "status": "ESTADO ACTUAL",
+      "action": "ACCIÓN"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "inProgress": "En Curso",
+      "completed": "Completado"
+    },
+    "session": {
+      "title": "Sesión Actual",
+      "ready": "¿Listo para empezar?"
+    },
+    "upcoming": {
+      "title": "Próximos Plazos",
+      "caughtUp": "¡Estás al día!",
+      "due": "Vence:"
+    }
+  },
+  "adminDashboard": {
+    "title": "Tablero",
+    "welcome": "¡Bienvenido de nuevo! Aquí tienes una vista general de tus proyectos.",
+    "newTask": "+ NUEVA TAREA",
+    "stats": {
+      "total": "Proyectos Totales",
+      "ended": "Proyectos Terminados",
+      "running": "Proyectos en Curso",
+      "pending": "Proyectos Pendientes"
+    },
+    "charts": {
+      "analytics": "Analítica del Proyecto",
+      "week": "Esta Semana",
+      "month": "Este Mes"
+    },
+    "session": {
+      "title": "Sesión Actual",
+      "pausing": "PAUSANDO...",
+      "stop": "DETENER"
+    },
+    "reminders": {
+      "title": "Recordatorios",
+      "viewAll": "Ver Todo"
+    },
+    "projects": {
+      "title": "Todos los Proyectos",
+      "name": "NOMBRE DEL PROYECTO",
+      "assignee": "ASIGNADO",
+      "due": "FECHA LÍMITE",
+      "status": "ESTADO"
+    },
+    "team": {
+      "title": "Miembros del Equipo",
+      "noMembers": "Sin miembros del equipo.",
+      "deleteTitle": "Eliminar Usuario"
+    },
+    "modal": {
+      "title": "Crear Nueva Tarea",
+      "taskTitle": "Título de la Tarea",
+      "description": "Descripción (Opcional)",
+      "assignTo": "Asignar a",
+      "selectUser": "Seleccionar Usuario",
+      "dueDate": "Fecha Límite",
+      "cancel": "Cancelar",
+      "create": "CREAR TAREA"
+    }
+  },
+  "managerDashboard": {
+    "header": {
+      "view": "Vista de Gerente",
+      "welcome": "Bienvenido, {{name}}",
+      "logout": "Cerrar Sesión"
+    },
+    "stats": {
+      "teamTasks": "Tareas del Equipo",
+      "completed": "Completado",
+      "pending": "Pendiente"
+    },
+    "overview": {
+      "title": "Resumen del Progreso del Equipo",
+      "noTasks": "No hay tareas asignadas a tu equipo.",
+      "assignee": "Asignado: {{name}}"
+    }
+  },
+  "tasksView": {
+    "header": {
+      "title": "Espacio de Trabajo de Tareas",
+      "subtitle": "Busca, filtra y gestiona todos los proyectos en un solo lugar."
+    },
+    "filters": {
+      "search": "Buscar tareas o descripciones...",
+      "status": {
+        "all": "Todos los Estados",
+        "pending": "Pendiente",
+        "inProgress": "En Curso",
+        "completed": "Completado"
+      }
+    },
+    "taskCard": {
+      "noDescription": "No se ha proporcionado descripción para esta tarea.",
+      "unassigned": "Sin asignar"
+    },
+    "empty": {
+      "title": "No se encontraron tareas",
+      "subtitle": "Intenta ajustar tu búsqueda o filtros."
+    }
+  },
+  "calendar": {
+    "header": {
+      "title": "Espacio de Trabajo de Calendario",
+      "subtitle": "Haz un seguimiento de los plazos y mantente al día."
+    },
+    "months": [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre"
+    ],
+    "days": [
+      "Dom",
+      "Lun",
+      "Mar",
+      "Mié",
+      "Jue",
+      "Vie",
+      "Sáb"
+    ],
+    "details": {
+      "schedule": "Agenda para hoy",
+      "noTasks": "No hay tareas para este día",
+      "more": "+ {{count}} más",
+      "overdue": "Control de atrasos"
+    }
+  },
+  "team": {
+    "header": {
+      "title": "Gestión de Equipo",
+      "subtitle": "Visualiza y gestiona a los miembros de tu equipo y su productividad.",
+      "invite": "INVITAR MIEMBRO"
+    },
+    "table": {
+      "member": "Miembro",
+      "role": "Rol",
+      "taskStats": "Estadísticas de Tareas",
+      "progress": "Progreso",
+      "actions": "Acciones",
+      "total": "Total",
+      "done": "Hecho",
+      "efficiency": "Eficiencia"
+    },
+    "messages": {
+      "confirmDelete": "¿Estás seguro de que deseas eliminar a este miembro del equipo?",
+      "memberRemoved": "Miembro eliminado",
+      "removeFailed": "Error al eliminar al miembro"
+    }
+  },
+  "settings": {
+    "header": {
+      "title": "Configuración de la Cuenta",
+      "subtitle": "Gestiona tu perfil, notificaciones y preferencias."
+    },
+    "tabs": {
+      "profile": "Información del Perfil",
+      "security": "Seguridad y Contraseña",
+      "notifications": "Notificaciones",
+      "appearance": "Apariencia"
+    },
+    "profile": {
+      "fullName": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "save": "GUARDAR CAMBIOS",
+      "success": "¡Perfil actualizado con éxito!",
+      "failed": "Error al actualizar"
+    },
+    "security": {
+      "title": "Cambiar Contraseña",
+      "subtitle": "Asegúrate de que tu cuenta utilice una contraseña larga y aleatoria para mantenerte seguro.",
+      "currentPassword": "Contraseña Actual",
+      "newPassword": "Nueva Contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "update": "ACTUALIZAR CONTRASEÑA",
+      "matchError": "Las contraseñas no coinciden",
+      "success": "¡Contraseña cambiada con éxito!",
+      "failed": "Error al cambiar la contraseña"
+    },
+    "appearance": {
+      "title": "Selección de Tema",
+      "subtitle": "Elige el aspecto que mejor se adapte a tu flujo de trabajo.",
+      "catchy": "Vibrante y Llamativo",
+      "bw": "Blanco y Negro",
+      "switched": "¡Tema cambiado!"
+    },
+    "notifications": {
+      "info": "El sistema de notificaciones está automatizado y siempre ACTIVO."
+    }
+  }
+}

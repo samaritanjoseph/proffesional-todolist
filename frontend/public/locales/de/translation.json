@@ -1,0 +1,73 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "tasks": "Tasks",
+    "calendar": "Calendar",
+    "analytics": "Analytics",
+    "team": "Team",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to your account.",
+    "email": "Email Address",
+    "password": "Password",
+    "signIn": "SIGN IN",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create one",
+    "forgotPassword": "Forgot password?"
+  },
+  "register": {
+    "title": "Join the Network.",
+    "subtitle": "Create an account to experience the next generation of task management.",
+    "createAccount": "Create Account",
+    "signUpText": "Sign up to get started.",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "password": "Password",
+    "confirm": "Confirm",
+    "createWorkspace": "Create Workspace",
+    "alreadyHave": "Already have an account?",
+    "signIn": "Sign in",
+    "enterOtp": "Enter Verification Code",
+    "otpSent": "We've sent a 6-digit code to",
+    "otpCode": "OTP Code",
+    "complete": "COMPLETE VERIFICATION",
+    "wrongEmail": "Entered the wrong email? Go back"
+  },
+  "topbar": {
+    "search": "Search tasks, projects, or team...",
+    "logout": "Logout"
+  },
+  "userDashboard": {
+    "title": "My Dashboard",
+    "subtitle": "Track your assigned projects and time.",
+    "projects": "My Projects",
+    "ended": "Ended Projects",
+    "running": "Running Projects",
+    "pending": "Pending Projects",
+    "assigned": "Assigned to Me",
+    "noProjects": "No projects assigned yet.",
+    "table": {
+      "name": "PROJECT NAME",
+      "due": "DUE DATE",
+      "status": "CURRENT STATUS",
+      "action": "ACTION"
+    },
+    "status": {
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "session": {
+      "title": "Current Session",
+      "ready": "Ready to start?"
+    },
+    "upcoming": {
+      "title": "Upcoming Deadlines",
+      "caughtUp": "You're all caught up!",
+      "due": "Due:"
+    }
+  }
+}

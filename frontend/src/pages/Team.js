@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Users, 
   Mail, 
@@ -14,6 +15,7 @@ import {
 import Layout from '../components/Layout';
 
 const Team = () => {
+  const { t } = useTranslation();
   const [team, setTeam] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,20 +28,20 @@ const Team = () => {
       const { data } = await API.get('/users');
       setTeam(data);
     } catch {
-      toast.error('Could not load team members');
+      toast.error(t('team.messages.loadFailed') || 'Could not load team members');
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to remove this team member?')) return;
+    if (!window.confirm(t('team.messages.confirmDelete'))) return;
     try {
       await API.delete(`/users/${id}`);
-      toast.success('Member removed');
+      toast.success(t('team.messages.memberRemoved'));
       fetchTeam();
     } catch {
-      toast.error('Failed to remove member');
+      toast.error(t('team.messages.removeFailed'));
     }
   };
 
@@ -47,11 +49,11 @@ const Team = () => {
     <Layout>
       <div className="mb-8 flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Team Management</h1>
-          <p className="text-sm text-slate-400">View and manage your team members and their productivity.</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">{t('team.header.title')}</h1>
+          <p className="text-sm text-slate-400">{t('team.header.subtitle')}</p>
         </div>
         <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-indigo-500/20 flex items-center gap-2">
-          <Plus size={18} /> INVITE MEMBER
+          <Plus size={18} /> {t('team.header.invite')}
         </button>
       </div>
 
@@ -64,11 +66,11 @@ const Team = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-white/[0.02] border-b border-white/10 text-xs text-slate-500 uppercase tracking-wider">
-                  <th className="px-6 py-4 font-semibold">Member</th>
-                  <th className="px-6 py-4 font-semibold">Role</th>
-                  <th className="px-6 py-4 font-semibold">Task Stats</th>
-                  <th className="px-6 py-4 font-semibold">Progress</th>
-                  <th className="px-6 py-4 font-semibold text-right">Actions</th>
+                  <th className="px-6 py-4 font-semibold">{t('team.table.member')}</th>
+                  <th className="px-6 py-4 font-semibold">{t('team.table.role')}</th>
+                  <th className="px-6 py-4 font-semibold">{t('team.table.taskStats')}</th>
+                  <th className="px-6 py-4 font-semibold">{t('team.table.progress')}</th>
+                  <th className="px-6 py-4 font-semibold text-right">{t('team.table.actions')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -103,18 +105,18 @@ const Team = () => {
                       <div className="flex gap-4">
                         <div className="flex items-center gap-1.5 text-xs text-slate-400">
                           <Clock size={14} className="text-amber-500" />
-                          <span className="text-white font-medium">{member.totalTasks}</span> Total
+                          <span className="text-white font-medium">{member.totalTasks}</span> {t('team.table.total')}
                         </div>
                         <div className="flex items-center gap-1.5 text-xs text-slate-400">
                           <CheckCircle2 size={14} className="text-emerald-500" />
-                          <span className="text-white font-medium">{member.completedTasks}</span> Done
+                          <span className="text-white font-medium">{member.completedTasks}</span> {t('team.table.done')}
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-5">
                       <div className="w-32">
                         <div className="flex justify-between items-center mb-1.5">
-                          <span className="text-[10px] font-bold text-slate-500 uppercase">Efficiency</span>
+                          <span className="text-[10px] font-bold text-slate-500 uppercase">{t('team.table.efficiency')}</span>
                           <span className="text-[10px] font-bold text-blue-400">
                             {member.totalTasks > 0 ? Math.round((member.completedTasks / member.totalTasks) * 100) : 0}%
                           </span>

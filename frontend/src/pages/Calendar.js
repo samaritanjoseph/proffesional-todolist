@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -13,6 +14,7 @@ import {
 import Layout from '../components/Layout';
 
 const Calendar = () => {
+  const { t, i18n } = useTranslation();
   const [tasks, setTasks] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -42,9 +44,8 @@ const Calendar = () => {
   const totalDays = daysInMonth(year, month);
   const startDay = firstDayOfMonth(year, month);
 
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+  const monthNames = t('calendar.months', { returnObjects: true });
+  const dayLabels = t('calendar.days', { returnObjects: true });
 
   const getTasksForDate = (day) => {
     return tasks.filter(task => {
@@ -103,7 +104,7 @@ const Calendar = () => {
           ))}
           {dayTasks.length > 2 && (
             <div className="text-[9px] text-slate-500 font-medium pl-1">
-              + {dayTasks.length - 2} more
+              {t('calendar.details.more', { count: dayTasks.length - 2 })}
             </div>
           )}
         </div>
@@ -115,8 +116,8 @@ const Calendar = () => {
     <Layout>
       <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Calendar Workspace</h1>
-          <p className="text-sm text-slate-400">Track deadlines and stay ahead of your schedule.</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">{t('calendar.header.title')}</h1>
+          <p className="text-sm text-slate-400">{t('calendar.header.subtitle')}</p>
         </div>
         
         <div className="flex items-center gap-4 bg-[#09090b] border border-white/5 p-1.5 rounded-xl">
@@ -134,7 +135,7 @@ const Calendar = () => {
           className="lg:col-span-3 bg-[#09090b] border border-white/5 rounded-2xl overflow-hidden shadow-2xl"
         >
           <div className="grid grid-cols-7 bg-white/[0.02] border-b border-white/10">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+            {dayLabels.map(day => (
               <div key={day} className="py-3 text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest">{day}</div>
             ))}
           </div>
@@ -153,15 +154,17 @@ const Calendar = () => {
               <CalendarIcon size={20} />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-white">{selectedDate.toLocaleDateString('en-US', { day: 'numeric', month: 'long' })}</h2>
-              <p className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">Schedule for today</p>
+              <h2 className="text-sm font-bold text-white">
+                {selectedDate.toLocaleDateString(i18n.language, { day: 'numeric', month: 'long' })}
+              </h2>
+              <p className="text-[11px] text-slate-500 uppercase font-bold tracking-wider">{t('calendar.details.schedule')}</p>
             </div>
           </div>
 
           <div className="space-y-4">
             {getTasksForDate(selectedDate.getDate()).length === 0 ? (
               <div className="py-8 text-center border-2 border-dashed border-white/5 rounded-2xl">
-                <p className="text-xs text-slate-600 font-medium italic">No tasks due on this day</p>
+                <p className="text-xs text-slate-600 font-medium italic">{t('calendar.details.noTasks')}</p>
               </div>
             ) : (
               getTasksForDate(selectedDate.getDate()).map(task => (
@@ -176,7 +179,7 @@ const Calendar = () => {
                     </span>
                     <div className="flex items-center gap-1.5 text-slate-500">
                       <Clock size={12} />
-                      <span className="text-[10px] font-medium">Overdue check</span>
+                      <span className="text-[10px] font-medium">{t('calendar.details.overdue')}</span>
                     </div>
                   </div>
                 </div>

@@ -13,6 +13,10 @@ import TasksView from './pages/TasksView';
 import Calendar from './pages/Calendar';
 import Settings from './pages/Settings';
 import Help from './pages/Help';
+import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import Subscription from './pages/Subscription';
 
 function App() {
   const isAuthenticated = !!localStorage.getItem('token');
@@ -32,6 +36,9 @@ function App() {
       <Routes>
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to={getDashboardRoute()} />} />
         <Route path="/register" element={!isAuthenticated ? <Register /> : <Navigate to={getDashboardRoute()} />} />
+        <Route path="/verify-email/:token" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         {/* ── RBAC Protected Routes ── */}
         
@@ -104,6 +111,14 @@ function App() {
           element={
             <PrivateRoute roles={['admin', 'manager', 'user']}>
               <Help />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/subscription"
+          element={
+            <PrivateRoute roles={['admin', 'manager', 'user']}>
+              <Subscription />
             </PrivateRoute>
           }
         />

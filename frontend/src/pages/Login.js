@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { Mail, Lock, ArrowRight, LayoutDashboard, ShieldCheck, Loader2, Eye, EyeOff, Sparkles } from 'lucide-react';
@@ -67,6 +68,7 @@ const shakeVariants = {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 const Login = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -89,7 +91,7 @@ const Login = () => {
     if (!formData.email || !formData.password) {
       setShakeForm(true);
       setTimeout(() => setShakeForm(false), 600);
-      toast.error('Please fill in all fields');
+      toast.error(t('login.fillFields'));
       return;
     }
 
@@ -103,14 +105,14 @@ const Login = () => {
       } else {
         localStorage.removeItem('remembered_email');
       }
-      toast.success('Welcome back! 👋');
+      toast.success(t('login.welcomeBack'));
       
       const roleRoutes = { admin: '/admin-dashboard', manager: '/manager-dashboard', user: '/user-dashboard' };
       navigate(roleRoutes[data.user.role] || '/user-dashboard');
     } catch (err) {
       setShakeForm(true);
       setTimeout(() => setShakeForm(false), 600);
-      toast.error(err.response?.data?.message || 'Authentication failed');
+      toast.error(err.response?.data?.message || t('login.authFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -255,10 +257,10 @@ const Login = () => {
               </span>
             </div>
             <h2 className="text-2xl font-bold text-white tracking-tight mb-1.5">
-              Welcome back
+              {t('login.title')}
             </h2>
             <p className="text-sm text-slate-500">
-              Sign in to continue to your dashboard.
+              {t('login.subtitle')}
             </p>
           </motion.div>
 
@@ -277,7 +279,7 @@ const Login = () => {
               className="space-y-1.5"
             >
               <label className="text-[13px] font-medium text-slate-400 ml-0.5">
-                Email Address
+                {t('login.email')}
               </label>
               <div className="relative">
                 <Mail
@@ -316,14 +318,14 @@ const Login = () => {
             >
               <div className="flex justify-between items-center">
                 <label className="text-[13px] font-medium text-slate-400 ml-0.5">
-                  Password
+                  {t('login.password')}
                 </label>
-                <button
-                  type="button"
+                <Link
+                  to="/forgot-password"
                   className="text-[12px] text-slate-500 hover:text-indigo-400 transition-colors duration-200"
                 >
-                  Forgot password?
-                </button>
+                  {t('login.forgotPassword')}
+                </Link>
               </div>
               <div className="relative">
                 <Lock
@@ -459,7 +461,7 @@ const Login = () => {
                       exit={{ opacity: 0 }}
                       className="flex items-center gap-2"
                     >
-                      Sign In <ArrowRight size={16} />
+                      {t('login.signIn')} <ArrowRight size={16} />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -474,7 +476,7 @@ const Login = () => {
             transition={{ delay: 0.65 }}
             className="mt-7 text-center text-[13px] text-slate-500"
           >
-            Don't have an account?{' '}
+            {t('login.noAccount')}{' '}
             <Link
               to="/register"
               className="font-medium transition-colors duration-200"
@@ -482,7 +484,7 @@ const Login = () => {
               onMouseEnter={e => (e.target.style.color = '#a5b4fc')}
               onMouseLeave={e => (e.target.style.color = '#818cf8')}
             >
-              Create one free →
+              {t('login.createAccount')} →
             </Link>
           </motion.p>
         </div>

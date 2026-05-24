@@ -98,8 +98,8 @@ router.patch('/change-password', verify, [
   }
 });
 
-// Get all users with task stats (Admin only)
-router.get('/', verify, checkRole('admin'), async (req, res, next) => {
+// Get all users with task stats (Admin and Manager)
+router.get('/', verify, checkRole(['admin', 'manager']), async (req, res, next) => {
   try {
     const usersWithStats = await User.aggregate([
       {
@@ -146,7 +146,7 @@ router.delete('/:id', verify, checkRole('admin'), async (req, res, next) => {
 
 // Update a user's role (Admin only)
 router.patch('/:id/role', verify, checkRole('admin'), [
-  body('role').isIn(['user', 'admin']).withMessage('Invalid role')
+  body('role').isIn(['user', 'admin', 'manager']).withMessage('Invalid role')
 ], async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
@@ -165,7 +165,7 @@ router.post('/', verify, checkRole('admin'), [
   body('name').notEmpty().withMessage('Name is required'),
   body('email').isEmail().withMessage('Valid email is required'),
   body('password').isLength({ min: 6 }).withMessage('Password minimum length is 6 characters'),
-  body('role').optional().isIn(['user', 'admin'])
+  body('role').optional().isIn(['user', 'admin', 'manager'])
 ], async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
@@ -175,7 +175,7 @@ router.post('/', verify, checkRole('admin'), [
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ message: "User already exists" });
 
-    const user = new User({ name, email, password, role: role || 'user' });
+    const user = new User({ name, email, password, role: role || 'user', isVerified: true });
     await user.save();
     
     res.status(201).json({ message: "User created", user: { id: user._id, name: user.name, role: user.role } });

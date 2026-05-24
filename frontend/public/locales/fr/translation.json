@@ -1,0 +1,267 @@
+{
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "tasks": "Tâches",
+    "calendar": "Calendrier",
+    "analytics": "Analytique",
+    "team": "Équipe",
+    "settings": "Paramètres",
+    "logout": "Déconnexion"
+  },
+  "login": {
+    "title": "Se connecter à Nexus",
+    "subtitle": "Veuillez saisir vos coordonnées pour continuer vers votre espace de travail.",
+    "email": "E-mail professionnel",
+    "password": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "signIn": "Se connecter",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "createAccount": "Créer un compte",
+    "welcomeBack": "Bon retour ! 👋",
+    "fillFields": "Veuillez remplir tous les champs",
+    "authFailed": "L'authentification a échoué"
+  },
+  "register": {
+    "title": "Rejoignez la prochaine génération de gestion de tâches.",
+    "subtitle": "Gestion de tâches sécurisée et performante conçue pour les équipes d’élite.",
+    "createAccount": "Créer un compte",
+    "signUpText": "Rejoignez des milliers de professionnels utilisant Nexus.",
+    "fullName": "Nom complet",
+    "email": "E-mail professionnel",
+    "password": "Mot de passe",
+    "confirm": "Confirmer le mot de passe",
+    "createWorkspace": "Créer un espace de travail",
+    "alreadyHave": "Vous avez déjà un compte ?",
+    "signIn": "Se connecter",
+    "enterOtp": "Vérifiez votre e-mail",
+    "otpSent": "Nous avons envoyé un code à 6 chiffres à",
+    "otpCode": "Code OTP",
+    "complete": "Terminer la configuration",
+    "wrongEmail": "Mauvaise adresse e-mail ?",
+    "otpSentSuccess": "OTP envoyé sur votre e-mail",
+    "passMismatch": "Les mots de passe ne correspondent pas",
+    "regFailed": "L'inscription a échoué",
+    "verified": "Compte vérifié !",
+    "invalidOtp": "OTP invalide ou expiré",
+    "fillFields": "Veuillez remplir tous les champs",
+    "otpLengthError": "Veuillez saisir un code à 6 chiffres"
+  },
+  "topbar": {
+    "search": "Rechercher des tâches, projets ou équipe...",
+    "logout": "Déconnexion"
+  },
+  "userDashboard": {
+    "title": "Mon Tableau de Bord",
+    "subtitle": "Suivez vos projets et votre temps.",
+    "projects": "Mes Projets",
+    "ended": "Projets Terminés",
+    "running": "Projets en Cours",
+    "pending": "Projets en Attente",
+    "assigned": "Assigné à Moi",
+    "noProjects": "Aucun projet assigné pour le moment.",
+    "table": {
+      "name": "NOM DU PROJET",
+      "due": "DATE D'ÉCHÉANCE",
+      "status": "STATUT ACTUEL",
+      "action": "ACTION"
+    },
+    "status": {
+      "pending": "En Attente",
+      "inProgress": "En Cours",
+      "completed": "Terminé"
+    },
+    "session": {
+      "title": "Session Actuelle",
+      "ready": "Prêt à commencer ?"
+    },
+    "upcoming": {
+      "title": "Échéances à Venir",
+      "caughtUp": "Vous êtes à jour !",
+      "due": "Échéance :"
+    }
+  },
+  "adminDashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bon retour ! Voici un aperçu de vos projets.",
+    "newTask": "+ NOUVELLE TÂCHE",
+    "stats": {
+      "total": "Total des projets",
+      "ended": "Projets terminés",
+      "running": "Projets en cours",
+      "pending": "Projets en attente"
+    },
+    "charts": {
+      "analytics": "Analyse du projet",
+      "week": "Cette semaine",
+      "month": "Ce mois-ci"
+    },
+    "session": {
+      "title": "Session actuelle",
+      "pausing": "PAUSE...",
+      "stop": "ARRÊTER"
+    },
+    "reminders": {
+      "title": "Rappels",
+      "viewAll": "Voir tout"
+    },
+    "projects": {
+      "title": "Tous les projets",
+      "name": "NOM DU PROJET",
+      "assignee": "ASSIGNÉ",
+      "due": "DATE D'ÉCHÉANCE",
+      "status": "STATUT"
+    },
+    "team": {
+      "title": "Membres de l'équipe",
+      "noMembers": "Aucun membre.",
+      "deleteTitle": "Supprimer l'utilisateur"
+    },
+    "modal": {
+      "title": "Créer une nouvelle tâche",
+      "taskTitle": "Titre de la tâche",
+      "description": "Description (facultatif)",
+      "assignTo": "Assigner à",
+      "selectUser": "Sélectionner un utilisateur",
+      "dueDate": "Date d'échéance",
+      "cancel": "Annuler",
+      "create": "CRÉER LA TÂCHE"
+    }
+  },
+  "managerDashboard": {
+    "header": {
+      "view": "Vue Gestionnaire",
+      "welcome": "Bienvenue, {{name}}",
+      "logout": "Déconnexion"
+    },
+    "stats": {
+      "teamTasks": "Tâches d'équipe",
+      "completed": "Terminé",
+      "pending": "En attente"
+    },
+    "overview": {
+      "title": "Aperçu de la progression de l'équipe",
+      "noTasks": "Aucune tâche assignée à votre équipe.",
+      "assignee": "Assigné : {{name}}"
+    }
+  },
+  "tasksView": {
+    "header": {
+      "title": "Espace de Travail des Tâches",
+      "subtitle": "Recherchez, filtrez et gérez tous les projets en un seul endroit."
+    },
+    "filters": {
+      "search": "Rechercher des tâches ou des descriptions...",
+      "status": {
+        "all": "Tous les statuts",
+        "pending": "En attente",
+        "inProgress": "En cours",
+        "completed": "Terminé"
+      }
+    },
+    "taskCard": {
+      "noDescription": "Aucune description fournie pour cette tâche.",
+      "unassigned": "Non assigné"
+    },
+    "empty": {
+      "title": "Aucune tâche trouvée",
+      "subtitle": "Essayez d'ajuster votre recherche ou vos filtres."
+    }
+  },
+  "calendar": {
+    "header": {
+      "title": "Espace de Travail du Calendrier",
+      "subtitle": "Suivez les échéances et restez en avance sur votre planning."
+    },
+    "months": [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre"
+    ],
+    "days": [
+      "Dim",
+      "Lun",
+      "Mar",
+      "Mer",
+      "Jeu",
+      "Ven",
+      "Sam"
+    ],
+    "details": {
+      "schedule": "Programme d'aujourd'hui",
+      "noTasks": "Aucune tâche pour ce jour",
+      "more": "+ {{count}} de plus",
+      "overdue": "Vérification du retard"
+    }
+  },
+  "team": {
+    "header": {
+      "title": "Gestion de l'Équipe",
+      "subtitle": "Visualisez et gérez les membres de votre équipe et leur productivité.",
+      "invite": "INVITER UN MEMBRE"
+    },
+    "table": {
+      "member": "Membre",
+      "role": "Rôle",
+      "taskStats": "Stats des tâches",
+      "progress": "Progression",
+      "actions": "Actions",
+      "total": "Total",
+      "done": "Fait",
+      "efficiency": "Efficacité"
+    },
+    "messages": {
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce membre de l’équipe ?",
+      "memberRemoved": "Membre supprimé",
+      "removeFailed": "Échec de la suppression du membre"
+    }
+  },
+  "settings": {
+    "header": {
+      "title": "Paramètres du Compte",
+      "subtitle": "Gérez votre profil, vos notifications et vos préférences."
+    },
+    "tabs": {
+      "profile": "Informations du profil",
+      "security": "Sécurité et mot de passe",
+      "notifications": "Notifications",
+      "appearance": "Apparence"
+    },
+    "profile": {
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "save": "ENREGISTRER LES MODIFICATIONS",
+      "success": "Profil mis à jour avec succès !",
+      "failed": "Échec de la mise à jour"
+    },
+    "security": {
+      "title": "Changer le mot de passe",
+      "subtitle": "Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester en sécurité.",
+      "currentPassword": "Mot de passe actuel",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "update": "METTRE À JOUR LE MOT DE PASSE",
+      "matchError": "Les mots de passe ne correspondent pas",
+      "success": "Mot de passe changé avec succès !",
+      "failed": "Échec du changement de mot de passe"
+    },
+    "appearance": {
+      "title": "Sélection du thème",
+      "subtitle": "Choisissez l’apparence qui convient à votre flux de travail.",
+      "catchy": "Vibrant et accrocheur",
+      "bw": "Noir et Blanc",
+      "switched": "Thème changé !"
+    },
+    "notifications": {
+      "info": "Le système de notifications est automatisé et toujours ACTIF."
+    }
+  }
+}

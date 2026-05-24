@@ -18,6 +18,6 @@ module.exports = (req, res, next) => {
     
     next(); // Move to the next middleware or route handler
   } catch (err) {
-    res.status(400).json({ message: "Invalid or expired token." });
+    res.status(401).json({ message: "Invalid or expired token." });
   }
 };

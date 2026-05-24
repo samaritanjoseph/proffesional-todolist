@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Search, 
   Filter, 
@@ -17,6 +18,7 @@ import {
 import Layout from '../components/Layout';
 
 const TasksView = () => {
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -57,8 +59,8 @@ const TasksView = () => {
     <Layout>
       <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Task Workspace</h1>
-          <p className="text-sm text-slate-400">Search, filter, and manage all projects in one place.</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">{t('tasksView.header.title')}</h1>
+          <p className="text-sm text-slate-400">{t('tasksView.header.subtitle')}</p>
         </div>
       </div>
 
@@ -68,7 +70,7 @@ const TasksView = () => {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 transition-colors" size={18} />
           <input 
             type="text"
-            placeholder="Search tasks or descriptions..."
+            placeholder={t('tasksView.filters.search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-[#09090b] border border-white/5 rounded-xl pl-12 pr-4 py-3 text-sm text-white outline-none focus:border-indigo-500/50 transition-all shadow-inner"
@@ -82,10 +84,10 @@ const TasksView = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="appearance-none bg-[#09090b] border border-white/5 rounded-xl pl-4 pr-10 py-3 text-sm text-slate-300 outline-none focus:border-indigo-500/50 cursor-pointer min-w-[140px]"
             >
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="in-progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="all">{t('tasksView.filters.status.all')}</option>
+              <option value="pending">{t('tasksView.filters.status.pending')}</option>
+              <option value="in-progress">{t('tasksView.filters.status.inProgress')}</option>
+              <option value="completed">{t('tasksView.filters.status.completed')}</option>
             </select>
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" size={16} />
           </div>
@@ -108,7 +110,9 @@ const TasksView = () => {
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded border ${getStatusStyle(task.status)}`}>
-                    {task.status.replace('-', ' ')}
+                    {task.status === 'in-progress' ? t('tasksView.filters.status.inProgress') : 
+                     task.status === 'completed' ? t('tasksView.filters.status.completed') : 
+                     t('tasksView.filters.status.pending')}
                   </span>
                   {user.role === 'admin' && (
                     <span className="text-[10px] text-slate-500 font-medium">#{task._id.slice(-4)}</span>
@@ -117,7 +121,7 @@ const TasksView = () => {
                 
                 <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{task.title}</h3>
                 <p className="text-sm text-slate-500 line-clamp-3 mb-6 leading-relaxed">
-                  {task.description || "No description provided for this task."}
+                  {task.description || t('tasksView.taskCard.noDescription')}
                 </p>
               </div>
 
@@ -131,7 +135,7 @@ const TasksView = () => {
                     <div className="w-5 h-5 rounded-full bg-slate-800 flex items-center justify-center text-[10px] text-white">
                       {task.assignedTo?.name?.charAt(0) || '?'}
                     </div>
-                    <span className="max-w-[80px] truncate">{task.assignedTo?.name || 'Unassigned'}</span>
+                    <span className="max-w-[80px] truncate">{task.assignedTo?.name || t('tasksView.taskCard.unassigned')}</span>
                   </div>
                 </div>
               </div>
@@ -145,8 +149,8 @@ const TasksView = () => {
           <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
             <Search className="text-slate-600" size={32} />
           </div>
-          <h3 className="text-white font-semibold">No tasks found</h3>
-          <p className="text-slate-500 text-sm mt-1">Try adjusting your search or filters.</p>
+          <h3 className="text-white font-semibold">{t('tasksView.empty.title')}</h3>
+          <p className="text-slate-500 text-sm mt-1">{t('tasksView.empty.subtitle')}</p>
         </div>
       )}
     </Layout>

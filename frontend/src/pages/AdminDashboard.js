@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import API from '../api/axiosInstance';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Folder, 
   CheckSquare, 
@@ -18,26 +19,10 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer 
 } from 'recharts';
 import Layout from '../components/Layout';
-
-const StatCard = ({ icon: Icon, label, value, color, delay }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
-    className="bg-[#09090b] border border-white/5 rounded-2xl p-5 flex flex-col justify-between"
-  >
-    <div className="flex justify-between items-start mb-4">
-      <div className="p-3 rounded-xl" style={{ backgroundColor: `${color}15`, color }}>
-        <Icon size={20} />
-      </div>
-      <button className="text-slate-500 hover:text-slate-300"><MoreVertical size={18}/></button>
-    </div>
-    <div>
-      <h3 className="text-3xl font-bold text-white mb-1 tracking-tight">{value}</h3>
-      <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{label}</p>
-    </div>
-  </motion.div>
-);
+import StatCard from '../components/StatCard';
 
 const AdminDashboard = () => {
+  const { t } = useTranslation();
   const [tasks, setTasks] = useState([]);
   const [users, setUsers] = useState([]);
   
@@ -112,23 +97,23 @@ const AdminDashboard = () => {
     <Layout>
       <div className="mb-8 flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">Dashboard</h1>
-          <p className="text-sm text-slate-400">Welcome back! Here's an overview of your projects.</p>
+          <h1 className="text-2xl font-bold text-white tracking-tight mb-1">{t('adminDashboard.title')}</h1>
+          <p className="text-sm text-slate-400">{t('adminDashboard.welcome')}</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
           className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-indigo-500/20"
         >
-          + NEW TASK
+          {t('adminDashboard.newTask')}
         </button>
       </div>
 
       {/* ── Top Stat Cards ── */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <StatCard icon={Folder} label="Total Projects" value={tasks.length} color="#3b82f6" delay={0.1} />
-        <StatCard icon={CheckSquare} label="Ended Projects" value={completed} color="#10b981" delay={0.2} />
-        <StatCard icon={Play} label="Running Projects" value={inProgress} color="#8b5cf6" delay={0.3} />
-        <StatCard icon={Clock} label="Pending Projects" value={pending} color="#f59e0b" delay={0.4} />
+        <StatCard icon={Folder} label={t('adminDashboard.stats.total')} value={tasks.length} color="#3b82f6" delay={0.1} />
+        <StatCard icon={CheckSquare} label={t('adminDashboard.stats.ended')} value={completed} color="#10b981" delay={0.2} />
+        <StatCard icon={Play} label={t('adminDashboard.stats.running')} value={inProgress} color="#8b5cf6" delay={0.3} />
+        <StatCard icon={Clock} label={t('adminDashboard.stats.pending')} value={pending} color="#f59e0b" delay={0.4} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -138,10 +123,10 @@ const AdminDashboard = () => {
           className="lg:col-span-2 bg-[#09090b] border border-white/5 rounded-2xl p-6"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-bold text-white">Project Analytics</h2>
+            <h2 className="text-lg font-bold text-white">{t('adminDashboard.charts.analytics')}</h2>
             <select className="bg-white/5 border border-white/10 text-slate-300 text-xs px-3 py-1.5 rounded-lg outline-none">
-              <option>This Week</option>
-              <option>This Month</option>
+              <option>{t('adminDashboard.charts.week')}</option>
+              <option>{t('adminDashboard.charts.month')}</option>
             </select>
           </div>
           <div className="h-72 w-full">
@@ -177,7 +162,7 @@ const AdminDashboard = () => {
             className="bg-[#09090b] border border-white/5 rounded-2xl p-6 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 blur-2xl rounded-full pointer-events-none"></div>
-            <h2 className="text-sm font-semibold text-slate-300 mb-4">Current Session</h2>
+            <h2 className="text-sm font-semibold text-slate-300 mb-4">{t('adminDashboard.session.title')}</h2>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-3xl font-bold text-white font-mono tracking-tighter">02:45:12</p>
@@ -194,8 +179,8 @@ const AdminDashboard = () => {
             className="flex-1 bg-[#09090b] border border-white/5 rounded-2xl p-6"
           >
             <div className="flex justify-between items-center mb-5">
-              <h2 className="text-lg font-bold text-white">Reminders</h2>
-              <button className="text-blue-400 text-xs font-medium hover:underline">View All</button>
+              <h2 className="text-lg font-bold text-white">{t('adminDashboard.reminders.title')}</h2>
+              <button className="text-blue-400 text-xs font-medium hover:underline">{t('adminDashboard.reminders.viewAll')}</button>
             </div>
             <ul className="space-y-4">
               {[
@@ -225,7 +210,7 @@ const AdminDashboard = () => {
           className="lg:col-span-2 bg-[#09090b] border border-white/5 rounded-2xl p-6"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-bold text-white">All Projects</h2>
+            <h2 className="text-lg font-bold text-white">{t('adminDashboard.projects.title')}</h2>
             <button className="text-slate-500 hover:text-white"><MoreVertical size={18}/></button>
           </div>
           
@@ -233,15 +218,15 @@ const AdminDashboard = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/10 text-xs text-slate-500">
-                  <th className="pb-3 font-medium">PROJECT NAME</th>
-                  <th className="pb-3 font-medium">ASSIGNEE</th>
-                  <th className="pb-3 font-medium">DUE DATE</th>
-                  <th className="pb-3 font-medium">STATUS</th>
+                  <th className="pb-3 font-medium">{t('adminDashboard.projects.name')}</th>
+                  <th className="pb-3 font-medium">{t('adminDashboard.projects.assignee')}</th>
+                  <th className="pb-3 font-medium">{t('adminDashboard.projects.due')}</th>
+                  <th className="pb-3 font-medium">{t('adminDashboard.projects.status')}</th>
                 </tr>
               </thead>
               <tbody>
                 {tasks.length === 0 && (
-                  <tr><td colSpan="4" className="py-4 text-center text-sm text-slate-500">No projects found.</td></tr>
+                  <tr><td colSpan="4" className="py-4 text-center text-sm text-slate-500">{t('adminDashboard.projects.noProjects') || "No projects found."}</td></tr>
                 )}
                 {tasks.map(task => (
                   <tr key={task._id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
@@ -278,11 +263,11 @@ const AdminDashboard = () => {
           className="bg-[#09090b] border border-white/5 rounded-2xl p-6"
         >
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg font-bold text-white">Team Members</h2>
+            <h2 className="text-lg font-bold text-white">{t('adminDashboard.team.title')}</h2>
             <button className="text-slate-500 hover:text-white"><MoreVertical size={18}/></button>
           </div>
           <ul className="space-y-4">
-            {users.length === 0 && <p className="text-sm text-slate-500">No team members.</p>}
+            {users.length === 0 && <p className="text-sm text-slate-500">{t('adminDashboard.team.noMembers')}</p>}
             {users.map(u => (
               <li key={u._id} className="flex justify-between items-center group p-2 hover:bg-white/5 rounded-xl transition-colors">
                 <div className="flex items-center gap-3">
@@ -296,12 +281,11 @@ const AdminDashboard = () => {
                 </div>
                 <div className="flex gap-2">
                    <button className="p-1.5 bg-white/5 hover:bg-white/10 rounded-md text-slate-300 transition-colors"><Bell size={14}/></button>
-                   {/* Delete button always visible now, using Trash2 */}
                    {u.role !== 'admin' && (
                      <button 
                        onClick={() => handleDeleteUser(u._id)} 
                        className="p-1.5 bg-red-500/10 hover:bg-red-500/20 rounded-md text-red-400 transition-colors"
-                       title="Delete User"
+                       title={t('adminDashboard.team.deleteTitle')}
                      >
                        <Trash2 size={14}/>
                      </button>
@@ -330,7 +314,7 @@ const AdminDashboard = () => {
               className="relative w-full max-w-md bg-[#09090b] border border-white/10 rounded-2xl p-6 shadow-2xl"
             >
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-white">Create New Task</h2>
+                <h2 className="text-xl font-bold text-white">{t('adminDashboard.modal.title')}</h2>
                 <button onClick={() => setIsModalOpen(false)} className="text-slate-500 hover:text-white">
                   <X size={20} />
                 </button>
@@ -338,7 +322,7 @@ const AdminDashboard = () => {
 
               <form onSubmit={handleCreateTask} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Task Title</label>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">{t('adminDashboard.modal.taskTitle')}</label>
                   <input 
                     type="text" required
                     value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})}
@@ -347,7 +331,7 @@ const AdminDashboard = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Description (Optional)</label>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">{t('adminDashboard.modal.description')}</label>
                   <textarea 
                     value={newTask.description} onChange={e => setNewTask({...newTask, description: e.target.value})}
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-blue-500 h-20 resize-none"
@@ -356,13 +340,13 @@ const AdminDashboard = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1">Assign To</label>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">{t('adminDashboard.modal.assignTo')}</label>
                     <select 
                       required
                       value={newTask.assignedTo} onChange={e => setNewTask({...newTask, assignedTo: e.target.value})}
                       className="w-full bg-[#050508] border border-white/10 rounded-xl px-4 py-2 text-white outline-none focus:border-blue-500"
                     >
-                      <option value="" disabled>Select User</option>
+                      <option value="" disabled>{t('adminDashboard.modal.selectUser')}</option>
                       {users.map(u => (
                         <option key={u._id} value={u._id}>{u.name}</option>
                       ))}
@@ -370,7 +354,7 @@ const AdminDashboard = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1">Due Date</label>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">{t('adminDashboard.modal.dueDate')}</label>
                     <input 
                       type="date" required
                       max="9999-12-31"
@@ -382,10 +366,10 @@ const AdminDashboard = () => {
 
                 <div className="mt-6 pt-6 border-t border-white/10 flex justify-end gap-3">
                   <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white">
-                    Cancel
+                    {t('adminDashboard.modal.cancel')}
                   </button>
                   <button type="submit" className="px-8 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20">
-                    CREATE TASK
+                    {t('adminDashboard.modal.create')}
                   </button>
                 </div>
               </form>
