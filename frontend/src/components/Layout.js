@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
-import { io } from 'socket.io-client';
-import toast from 'react-hot-toast';
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || 'null'));
@@ -30,32 +28,7 @@ const Layout = ({ children }) => {
     return () => clearInterval(interval);
   }, [theme, user]);
 
-  useEffect(() => {
-    if (!user) return;
 
-    const socket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000');
-
-    // Join the room for this user ID
-    socket.emit('join', user.id);
-
-    // Listen for generic notifications
-    socket.on('notify', (message) => {
-      toast(message, {
-        icon: '🔔',
-        style: {
-          borderRadius: '12px',
-          background: '#09090b',
-          color: '#fff',
-          border: '1px solid rgba(255,255,255,0.1)',
-        },
-      });
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.id]);
 
   return (
     <div className="flex h-screen bg-[var(--bg-primary)] overflow-hidden font-sans text-slate-200">
